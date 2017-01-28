@@ -1,0 +1,102 @@
+diff --git a/config.mk b/config.mk
+index e71316c..7bf6aa0 100644
+--- a/config.mk
++++ b/config.mk
+@@ -19,7 +19,7 @@ LIBS = -L/usr/lib -lc -L${X11LIB} -lX11 ${GTKLIB} -lgthread-2.0
+ 
+ # flags
+ CPPFLAGS = -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE
+-CFLAGS = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
++CFLAGS = -std=c99 -pedantic -Wall -O3 ${INCS} ${CPPFLAGS}
+ LDFLAGS = -s ${LIBS}
+ 
+ # Solaris
+diff --git a/surf.c b/surf.c
+index 8f2bfe9..ffd0d57 100644
+--- a/surf.c
++++ b/surf.c
+@@ -83,6 +83,13 @@ typedef struct {
+ } Key;
+ 
+ typedef struct {
++	gboolean ignore;
++	const char *prefix;
++	void (*func)(Client *c, const Arg *a);
++	const char *cmd;
++} UriPrefix;
++
++typedef struct {
+ 	unsigned int target;
+ 	unsigned int mask;
+ 	guint button;
+@@ -145,6 +152,7 @@ static gboolean permissionrequested(WebKitWebView *v,
+                                     WebKitPermissionRequest *r, Client *c);
+ static gboolean decidepolicy(WebKitWebView *v, WebKitPolicyDecision *d,
+                              WebKitPolicyDecisionType dt, Client *c);
++static gboolean decideuriprefix(Client *c, WebKitNavigationAction *a);
+ static void decidenavigation(WebKitPolicyDecision *d, Client *c);
+ static void decidenewwindow(WebKitPolicyDecision *d, Client *c);
+ static void decideresource(WebKitPolicyDecision *d, Client *c);
+@@ -911,6 +915,10 @@ showview(WebKitWebView *v, Client *c)
+ 		c->inspector = webkit_web_view_get_inspector(c->view);
+ 
+ 	c->win = createwindow(c);
++	gtk_widget_set_app_paintable(c->win, true);
++	GdkRGBA rgba = (GdkRGBA){0.055,0.055,0.055,1};
++	webkit_web_view_set_background_color(c->view, &rgba);
++
+ 
+ 	gtk_container_add(GTK_CONTAINER(c->win), GTK_WIDGET(c->view));
+ 	gtk_widget_show_all(c->win);
+@@ -1068,6 +1076,26 @@ permissionrequested(WebKitWebView *v, WebKitPermissionRequest *r, Client *c)
+ }
+ 
+ gboolean
++decideuriprefix(Client *c, WebKitNavigationAction *a)
++{
++	unsigned i = 0;
++	const gchar *u = webkit_uri_request_get_uri(
++		webkit_navigation_action_get_request(a));
++
++	if (u == NULL)
++		return FALSE;
++	while (i < LENGTH(uriprefix) && !g_str_has_prefix(u, uriprefix[i].prefix))
++		++i;
++	if (i >= LENGTH(uriprefix))
++		return FALSE;
++	if (uriprefix[i].func) {
++		Arg arg = { .v = (const char *[]){ uriprefix[i].cmd, u, NULL } };
++		uriprefix[i].func(c, &arg);
++	}
++	return uriprefix[i].ignore;
++}
++
++gboolean
+ decidepolicy(WebKitWebView *v, WebKitPolicyDecision *d,
+     WebKitPolicyDecisionType dt, Client *c)
+ {
+@@ -1095,6 +1123,10 @@ decidenavigation(WebKitPolicyDecision *d, Client *c)
+ 	    webkit_navigation_policy_decision_get_navigation_action(
+ 	    WEBKIT_NAVIGATION_POLICY_DECISION(d));
+ 
++	if (decideuriprefix(c, a)) {
++		webkit_policy_decision_ignore(d);
++		return;
++	}
+ 	switch (webkit_navigation_action_get_navigation_type(a)) {
+ 	case WEBKIT_NAVIGATION_TYPE_LINK_CLICKED: /* fallthrough */
+ 	case WEBKIT_NAVIGATION_TYPE_FORM_SUBMITTED: /* fallthrough */
+@@ -1253,11 +1285,11 @@ clipboard(Client *c, const Arg *a)
+ {
+ 	if (a->b) { /* load clipboard uri */
+ 		gtk_clipboard_request_text(gtk_clipboard_get(
+-		                           GDK_SELECTION_PRIMARY),
++		                           GDK_SELECTION_CLIPBOARD),
+ 		                           pasteuri, c);
+ 	} else { /* copy uri */
+ 		gtk_clipboard_set_text(gtk_clipboard_get(
+-		                       GDK_SELECTION_PRIMARY), c->targeturi
++		                       GDK_SELECTION_CLIPBOARD), c->targeturi
+ 		                       ? c->targeturi : geturi(c), -1);
+ 	}
+ }

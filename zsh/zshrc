@@ -1,0 +1,296 @@
+
+source ~/.zprofile 2> /dev/null
+
+export SVN_EDITOR="vim"
+export EDITOR="vim"
+
+export PYSPARK_PYTHON="/usr/bin/python2"
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_RUNTIME_DIR="$HOME/.runtime"
+
+export IPYTHON=1
+export RANGER_LOAD_DEFAULT_RC="FALSE"
+export ft_MAIL="abanlin@student.42.fr"
+export ft_USER="abanlin"
+export PAGER="less"
+
+export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
+export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp"
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export XAUTHORITY="$XDG_RUNTIME_DIR/xauthority"
+# gtk+
+#export GTK_IM_MODULE_FILE="/etc/gtk-2.0/gtk.immodules"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+# XDG_RUNTIME
+export TMUX_TMPDIR="$XDG_RUNTIME_DIR/tmux"
+export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvt/urxvt-$(hostname)"
+
+export LIBVA_DRIVER_NAME=vdpau
+export VDPAU_DRIVER=r600
+#export LIBVA_DRIVER_NAME=xvba
+#export XVBA_DRIVER=vaapi
+
+autoload -U colors
+colors
+#export LESS_TERMCAP_mb="$fg[blue]"
+export LESS_TERMCAP_mb="$fg[magenta]"
+export LESS_TERMCAP_md="$fg[red]"
+export LESS_TERMCAP_me="$reset_color"
+export LESS_TERMCAP_se="$reset_color"
+export LESS_TERMCAP_so="$fg[green]"
+export LESS_TERMCAP_ue="$reset_color"
+export LESS_TERMCAP_us="$fg_bold[blue]"
+export LS_COLORS='di=94:fi=2:ln=35:pi=93:so=33:bd=36:cd=96:or=95:mi=90:ex=32:su=:sg=:ca=:tw=:ow=:st='
+#export LS_COLORS='di=90:fi=2:ln=35:pi=93:so=33:bd=36:cd=96:or=95:mi=90:ex=32:su=:sg=:ca=:tw=:ow=:st='
+
+# PATH ENV
+export GOPATH=$HOME/.golang/
+export PATH=$PATH:$HOME/.rvm/bin
+export PATH=$PATH:$HOME/.cabal/bin
+export PATH=$PATH:$HOME/.golang/bin
+export PATH=$HOME/bin:$PATH
+
+# History
+HISTFILE=$XDG_CACHE_HOME/zsh/zhistory       # enable history saving on shell exit
+
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+
+#setopt APPEND_HISTORY          # append rather than overwrite history file.
+HISTSIZE=1200                   # lines of history to maintain memory
+SAVEHIST=1000                   # lines of history to maintain in history file.
+setopt HIST_EXPIRE_DUPS_FIRST   # allow dups, but expire old ones when I hit HIST
+setopt EXTENDED_HISTORY         # save timestamp and runtime information
+setopt histignoredups
+setopt pushdignoredups
+setopt pushdminus
+setopt extendedglob             # extended completion
+#END
+
+# color shortcut
+rs="%{$reset_color%}"   # normal color
+gr="%{$fg_bold[black]%}"    # failed error color
+bw="%{$fg_bold[white]%}"    # failed error color
+re="%{$fg[red]%}"    # failed error color
+
+
+# vcs info (git, svn, mercurial,...)
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn hg
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' formats " ❲$gr%s$rs❳ $bw%b$rs $re%m%u%c$rs"
+
+precmd() {
+    vcs_info
+}
+
+# auto completion
+autoload -U compinit
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+
+zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
+zstyle ':completion:*:warnings' format '%BNo matches for: %d%b'
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+	 /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/completion
+zmodload zsh/complist
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+zstyle ':completion:*' completer _expand _complete _ignored
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' \
+    'm:{a-z\-}={A-Z\_}' \
+    'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+    'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
+
+
+# Usefull Bindkeys
+[[ -z "$terminfo[kdch1]" ]] || bindkey -M emacs "$terminfo[kdch1]" delete-char
+[[ -z "$terminfo[khome]" ]] || bindkey -M emacs "$terminfo[khome]" beginning-of-line
+[[ -z "$terminfo[kend]"  ]] || bindkey -M emacs "$terminfo[kend]"  end-of-line
+[[ -z "$terminfo[kich1]" ]] || bindkey -M emacs "$terminfo[kich1]" overwrite-mode
+[[ -z "$terminfo[kdch1]" ]] || bindkey -M vicmd "$terminfo[kdch1]" vi-delete-char
+[[ -z "$terminfo[khome]" ]] || bindkey -M vicmd "$terminfo[khome]" vi-beginning-of-line
+[[ -z "$terminfo[kend]"  ]] || bindkey -M vicmd "$terminfo[kend]"  vi-end-of-line
+[[ -z "$terminfo[kich1]" ]] || bindkey -M vicmd "$terminfo[kich1]" overwrite-mode
+[[ -z "$terminfo[cuu1]"  ]] || bindkey -M viins "$terminfo[cuu1]"  vi-up-line-or-history
+[[ -z "$terminfo[cuf1]"  ]] || bindkey -M viins "$terminfo[cuf1]"  vi-forward-char
+[[ -z "$terminfo[kcuu1]" ]] || bindkey -M viins "$terminfo[kcuu1]" vi-up-line-or-history
+[[ -z "$terminfo[kcud1]" ]] || bindkey -M viins "$terminfo[kcud1]" vi-down-line-or-history
+[[ -z "$terminfo[kcuf1]" ]] || bindkey -M viins "$terminfo[kcuf1]" vi-forward-char
+[[ -z "$terminfo[kcub1]" ]] || bindkey -M viins "$terminfo[kcub1]" vi-backward-char
+
+zle -A .backward-delete-char vi-backward-delete-char # vim-like
+bindkey '^[[3~' 	delete-char		    # Del vim-like
+bindkey '^[[1;2D'	vi-backward-word	# jump by wordvi-up-line-or-history
+bindkey '^[[1;2C'	vi-forward-word		# jump by word
+bindkey	'^[[1;5D'	beginning-of-line	# jump to the beg
+bindkey	'^[[1;5C'	end-of-line		    # jump to the end
+# vim bindkeys
+bindkey	'^[/'	history-incremental-search-backward
+bindkey	'^[k'	history-beginning-search-backward
+bindkey	'^[j'	history-beginning-search-forward
+bindkey '§' history-beginning-search-menu
+
+#OPTION
+setopt prompt_subst
+setopt autocd
+setopt nobeep
+setopt VI
+
+KEYTIMEOUT=1
+
+coloset()
+{
+	_SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+	for i in $(sed -n "$_SEDCMD" $XDG_CONFIG_HOME/Xresource/urxvt-color.rc | \
+		awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+		echo -en "$i"
+	done
+}
+
+clean.all()
+{
+    rm -rf $XDG_CACHE_HOME/*
+}
+
+clean()
+{
+    rm -rf $XDG_CACHE_HOME/^(rtorrent|tox)*
+    mkdir -p $XDG_CACHE_HOME/zsh &> /dev/null
+}
+
+clean.vimview()
+{
+    rm -rf $XDG_CACHE_HOME/vim/view
+}
+
+clean.tox()
+{
+    rm -rf $XDG_CACHE_HOME/tox &> /dev/null
+    mkdir -p $XDG_CACHE_HOME/tox &> /dev/null
+}
+
+clean.rtorrent()
+{
+    rm -rf $XDG_CACHE_HOME/rtorrent &> /dev/null
+    mkdir -p $XDG_CACHE_HOME/rtorrent &> /dev/null
+}
+
+pu() {
+    if [[ "$KEYMAP" == vicmd ]]; then
+        echo "${gr}%n${rs}"
+    else
+        echo "${bw}%n${rs}"
+    fi
+}
+
+pe() {
+    let x=$?
+    if (( ! x == 0 )); then
+        echo "❲ ${re}$x${rs} ❳ "
+    fi
+}
+
+function chpwd() {
+    emulate -L zsh
+    ls -h --color=auto
+}
+
+PROMPT=$'┌─╼ $(pu) ⎣$gr%~$rs⎤${vcs_info_msg_0_}\n└╼ '
+RPROMPT=$'$(pe)'
+
+# VI indicator
+zle-keymap-select () {
+    zle reset-prompt
+}
+zle -N zle-keymap-select
+
+# OPAM configuration
+#source $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# alias
+
+alias sr="source ~/.zshrc"
+alias emacs="emacs -nw"
+alias grep="grep --color=auto"
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias qm4="qmake-qt4 -project && qmake-qt4 && make"
+alias mutt="mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
+
+alias fbimg=fim
+alias fbmplayer='mplayer -vo fbdev2'
+alias fbmplayeres='mplayer -vo fbdev2 -vf scale=1920:1080'
+alias fbmpv='mpv -vo drm'
+alias fbpdf='fimgs -r 350x350'
+alias ncmpcpp='ncmpcpp -c /home/sohorx/.config/ncmpcpp/config'
+
+alias tef='trans -s english -t french -l french'
+alias tfe='trans -s french -t english -l english'
+alias www='w3 -ppc 8 '
+
+alias pd="pushd"
+alias dp="popd"
+alias ds="dirs"
+alias ne="emacs -nw"
+alias nec="emacsclient -c -nw"
+alias mk="make re DEBUG=yes"
+alias df="df -kh"
+alias du="du -h"
+alias vi="vim"
+alias qq="exit"
+alias :q="exit"
+alias gp='git pull origin master'
+alias pl="git pull origin master"
+alias gc='git checkout master'
+alias gt='trans'
+alias w3='w3m -config /home/sohorx/.config/w3m/config'
+alias wd='w3 -ppc 8 www.duckduckgo.com && rm -rf ~/.w3m'
+alias wg='w3 -ppc 8 www.google.com/en && rm -rf ~/.w3m'
+
+alias ls="ls --color=auto --show-control-chars --file-type"
+alias ll="ls -lh"
+alias la="ls -lah"
+alias l="ll"
+
+alias f='fg'
+alias q='exit'
+alias m='mutt'
+alias j='jobs'
+alias f='fg'
+alias n='ncmpcpp'
+alias r='ranger'
+alias c='clear'
+alias d='du -s' 
+alias h='htop' 
+alias y='youtube-viewer -C'
+alias j='jobs'
+alias t='launch.toxic'
+alias v='vim'
+
+# extention
+alias -s pdf='llpp'
+alias -s torrent='rtorrent'
+alias -s qsp='jack'
+alias -s c=$EDITOR
+alias -s C=$EDITOR
+alias -s php=$EDITOR
+alias -s css=$EDITOR
+alias -s html=$EDITOR
+alias -s js=$EDITOR
+alias -s vim=$EDITOR
+alias -s rc=$EDITOR
+alias -s yml=$EDITOR
+alias -s rs=$EDITOR

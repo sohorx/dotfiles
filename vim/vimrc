@@ -1,0 +1,324 @@
+" **************************************************************************** "
+"                                                                              "
+"                                                                              "
+"    File: vimrc [ v1.01 ]                          #   #  ###  #: ;#          "
+"                                                    # #    #   #`# #          "
+"    By: abanlin <abanlin_bocal@staff.42.fr>          #    ###  #   #          "
+"                                                    ________________          "
+"    Created: 2013/08/21 13:57:51 by abanlin          ##############           "
+"    Updated: 2016/06/15 04:28:56 by abanlin          ###   ########.fr        "
+"                                                                              "
+" **************************************************************************** "
+" * " VIM CONF " *
+" ****************
+
+" PLUGINS PATHOGEN:
+"******************
+
+function s:VundleStart()
+  set nocompatible                  " vi no compatible
+  filetype off
+  set rtp+=$XDG_CONFIG_HOME/vim/bundle/Vundle.vim
+  call vundle#begin()
+  " Vundle:
+  Plugin 'gmarik/Vundle.vim'
+  " Lib:
+  Plugin 'L9'
+  Plugin 'tlib'
+  Plugin 'vim-addon-mw-utils'
+  " TMUX POWA:
+  Plugin 'christoomey/vim-tmux-navigator'
+  " Languages:
+  Plugin 'rust-lang/rust.vim'
+  " Utilities:
+  Plugin 'nelstrom/vim-visual-star-search'
+  Plugin 'taglist.vim'
+  Plugin 'easymotion/vim-easymotion' 
+  Plugin 'tpope/vim-surround'       " surrounding utility
+  Plugin 'tpope/vim-commentary'     " auto comment
+  Plugin 'tpope/vim-fugitive'       " git wrapper
+  Plugin 'tpope/vim-dispatch'       " dispatch process
+  Plugin 'tommcdo/vim-exchange'
+  Plugin 'rking/ag.vim'             " better than grep
+  Plugin 'vim-scripts/hexman.vim'   " hex mode
+  Plugin 'sjl/gundo.vim'            " undo tree
+  Plugin 'scrooloose/nerdtree'      " FS tree explorer
+  Plugin 'scrooloose/syntastic'     " auto syntax checking
+  " Mine:
+  Plugin 'sohorx/42.vim'
+  " Snippets:
+  Plugin 'SirVer/ultisnips'         " engine
+  Plugin 'honza/vim-snippets'       " snippets
+  " Completion:
+  "Plugin 'Valloric/YouCompleteMe'
+  " Specs:
+  Plugin 'vim-scripts/TagHighlight'
+  Plugin 'kchmck/vim-coffee-script'
+  Plugin 'octol/vim-cpp-enhanced-highlight'
+  Plugin 'bitc/vim-hdevtools'
+  call vundle#end()
+endfunction
+
+function s:PluginsSets()
+  let g:UltiSnipsExpandTrigger       = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger  = "<c-k>"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-j>"
+
+  let g:syntastic_haskell_compiler       = 'ghc'
+  let g:syntastic_haskell_hdevtools_args = '-g-isrc -g-Wall'
+  let g:syntastic_haskell_checkers       = ['ghc', 'hdevtools', 'hlint']
+  let g:syntastic_cpp_compiler_options   = ' -std=c++11'
+  let g:syntastic_cpp_checkers    = ['cppcheck', 'gcc']
+  let g:syntastic_cpp_compiler    = 'g++'
+  let g:cpp_class_scope_highlight = 1
+  let g:syntastic_python_checkers = ['pyflakes', 'pep8']
+  let g:syntastic_c_checkers      = ['gcc', 'cppcheck']
+  let g:syntastic_sh_checkers     = ['sh']
+  let g:syntastic_go_checkers     = ['golint']
+
+  " let g:syntastic_auto_loc_list = 1
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_check_on_open = 0
+  let g:syntastic_check_on_wq = 0
+  " " haskell
+  let g:hdevtools_options = g:syntastic_haskell_hdevtools_args
+  " let g:hscoptions   = "is="
+  " let g:conceallevel = 0
+  " syntax checker using syntastic
+  let g:DVB_TrimWS  = 1
+  let g:haddock_browser = "/usr/bin/w3m"
+
+  " Map:
+  nmap     f              <Plug>(easymotion-s)
+  nnoremap <silent> <F5>  <C-l>
+  nnoremap <silent> <F6>  :GundoToggle<CR>
+  nnoremap <silent> <F7>  :NERDTreeToggle<CR><cr>
+  nnoremap <silent> <F8>  :TlistToggle<CR><cr>
+endfunction
+
+
+" CONFIGURATION:
+"***************
+
+let mapleader = ";"
+
+function s:Configure()
+  filetype plugin indent on
+  syntax on
+
+  " for everything, see help for more info
+  set nocompatible                                " vi no compatible
+  set vb                                          " flash bells (nobeep)
+  set t_vb=                                       " no flash (no bells)
+  " do not forget to use <C-d> with wildmenu
+  set wildmenu                                    " menu autocomplet
+  set wildmode=longest:full,full                  " type menu (change if you don't like it)
+  set wildignore+=*.o,*.a,*.pyc,*.git,*.sw,*.d    " menu will ignore those file
+  set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+  set wildignore+=.hg,.svn
+  set wildignore+=*~,*.swp,*.tmp
+  set wildignorecase
+  set smartindent                                 " should not be necessary since we use cindent
+  set indentexpr=                                 " make sure to not use it
+  set cindent                                     " use of cindent
+  set cinoptions=>s,e0,n0,f0,{0,}0,^0,L0,:s,=s    " how to indent
+  set cinoptions+=,l1,gs,h0,ps,t0,+s,(0,w1,Ws     " '
+  set cinoptions+=,m1,)70,*300                    " '
+  set shiftwidth=4                                " '
+  set tabstop=4                                   " normally 8
+  set softtabstop=4                               " '
+  set smarttab                                    " '
+  set expandtab                                   " switch tab by spaces
+  set shell=$SHELL                                " '
+  set foldmethod=marker                           " '
+  set foldlevel=0                                 " everything is folded by default
+  set formatoptions+=w                            " '
+  set encoding=utf-8                              " '
+  set wrap                                        " '
+  set linebreak                                   " linebreak for wrap
+  set showbreak=···                               " linebreak chars
+  set number                                      " show vertical bar number
+  set numberwidth=2                               " '
+  set relativenumber                              " '
+  set hidden                                      " hide unnecessary errors
+  set backspace=2                                 " '
+  set scrolloff=4                                 " keep n lines above/below
+  set sidescroll=0                                " '
+  set sidescrolloff=8                             " '
+  set showcmd                                     " '
+  set showmode                                    " show: insert, visual, ...
+  set timeoutlen=1000                             " timeout <leader><time>cmd
+  set ttimeoutlen=50                              " '
+  set incsearch                                   " incremental search
+  set hlsearch                                    " highlight research
+  set ignorecase                                  " search ignore Case
+  set smartcase                                   " if it's smart, it could only be good
+  set backup                                      " save backup (*~)
+  set undolevels=500                              " '
+  set history=800                                 " command history
+  set textwidth=0                                 " auto wrap text to value
+  set wrapmargin=0                                " auto wrap margin (for cc)
+  set colorcolumn=0                               " '
+  " set listchars=tab:›\ ,space:·,trail:·,eol:¬     " chars for <leader>l
+  set listchars=tab:˃\ ,space:·,trail:·,eol:¬     " chars for <leader>l
+  set fillchars+=vert:┆                           " char for vertical split ¦
+  set nocursorline                                " color line 
+  set lazyredraw                                  " no redraw for cursorline
+  set ttyfast                                     " fast terminal
+  set autoread                                    " watch for update
+
+  autocmd FileType man set tabstop=8
+  runtime ftplugin/man.vim                        " load man in vim
+endfunction
+
+
+" BACKUP DIRECTORY:                             " change backup directory
+"******************
+
+function s:XDG_config_dir()
+    set runtimepath=$XDG_CONFIG_HOME/vim
+    set runtimepath+=$XDG_CONFIG_HOME/vim/after
+    set runtimepath+=$VIM
+    set runtimepath+=$VIMRUNTIME
+    let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+endfunction
+
+function s:XDG_cache_dir()
+    set directory=$XDG_CACHE_HOME/vim,/tmp
+    set backupdir=$XDG_CACHE_HOME/vim
+    set viewdir=$XDG_CACHE_HOME/vim/view
+
+    au BufWinLeave ?* mkview
+    au BufWinEnter ?* silent! loadview
+    if has("unix") || has ("win32unix")
+        if filewritable(expand($XDG_CACHE_HOME . "/vim/view")) != 2
+            call system("mkdir -p $XDG_CACHE_HOME/vim/view")
+        endif
+        if filewritable(expand($XDG_CACHE_HOME . "/vim/backup")) != 2
+            call system("mkdir -p $XDG_CACHE_HOME/vim/backup")
+        endif
+    endif
+endfunction
+
+
+" STATUS BAR:
+"************
+
+function s:StatusLineSet()
+  set laststatus=2
+  set statusline=[%5*%n%*]\                       " buffer number
+  set statusline+=[%6*%f%*]\                      " full path
+  set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+  set statusline+=%{&ff}%*]\                      " file format
+  set statusline+=%3*%y%*                         " file type
+  set statusline+=%2*%m%r%*\ %<                   " modified flag
+  set statusline+=%{repeat('╴',winwidth(0)-40)}%= " bar  -----------
+  set statusline+=>\ %*                           " character under cursor
+  set statusline+=[%c                             " cursor column
+  set statusline+=%V]\                            " column
+  set statusline+=[%l/%L]                         " cursor line/total lines
+  set statusline+=[%P]                            " percent through file
+endfunction
+
+" SHORTCUTS:
+"***********
+
+function s:KeymapConfigure()
+  " sudo Write
+  command W w !sudo tee %>/dev/null
+
+  " some remap of escape
+  map! jk <ESC>l
+  map! kj <ESC>l
+  " move between windows
+  nnoremap Y     y$
+  nnoremap <C-j> <C-w>j
+  nnoremap <C-k> <C-w>k
+  nnoremap <C-l> <C-w>l
+  nnoremap <C-h> <C-w>h
+  " leader map
+  imap <buffer> <leader>it  <Plug>Tex_InsertItemOnThisLine
+  nmap <silent> <leader>ss  :set spell!<CR>
+  nmap <silent> <leader>sf  :setlocal spell spelllang=fr<CR>
+  nmap <silent> <leader>se  :setlocal spell spelllang=en_us<CR>
+  nmap <silent> <leader>s;  z=
+  nmap <leader>t            :tabe $MYVIMRC<CR>
+  nmap <leader>l            :set list!<CR>
+  nmap <leader>c            :set cursorline!<CR>
+  nmap <leader>C            :set cursorcolumn!<CR>
+  nmap <leader>b            :set laststatus=0<CR>
+  nmap <leader>B            :set laststatus=2<CR>
+  nmap <leader>n            :set rnu!<CR>
+  nmap <leader>N            :set nu!<CR>
+  " regexp
+  nmap <leader>/            :%s/\<<C-r><C-w>\>//g<Left><Left>
+  nmap <leader>"            :%s/\<<C-r><C-w>\>//cg<Left><Left><Left>
+  " resize windows
+  nmap <silent> <down>      :resize +5<CR>
+  nmap <silent> <up>        :resize -5<CR>
+  nmap <silent> <left>      :vertical resize +5<CR>
+  nmap <silent> <right>     :vertical resize -5<CR>
+  " buffers
+  nmap <silent> <C-n>       :bn<CR>
+  nmap <silent> <C-p>       :bp<CR>
+  " folder:
+  nmap <silent> z1          :setlocal foldlevel=0<CR>
+  nmap <silent> z2          :setlocal foldlevel=1<CR>
+  nmap <silent> z3          :setlocal foldlevel=2<CR>
+  nmap <silent> z4          :setlocal foldlevel=3<CR>
+  nmap <silent> z5          :setlocal foldlevel=4<CR>
+  nmap <silent> z6          :setlocal foldlevel=6<CR>
+  nmap <silent> z0          :setlocal foldlevel=9999<CR>
+  " commentary
+  omap <silent> \           gc
+  nmap <silent> \u          gcu
+  nmap <silent> \           gc
+  nmap <silent> \\          gcc
+  vmap <silent> \           gc
+  " man
+  nmap <silent> <S-k>       :<C-U>exe "Man " . v:count1 . " <cword>"<CR><cr>
+  " make
+  nmap <silent>ma           :make<CR>:cw<CR>
+  nmap ]e                   :cn<CR>
+  nmap [e                   :cp<CR>
+  " show hi
+  map <F10>                 :echo "hi<" 
+              \
+              \ . synIDattr(synID(line("."), col("."), 1),"name")
+              \ . '> trans<'
+              \ . synIDattr(synID(line("."), col("."), 0),"name")
+              \ . "> lo<" . synIDattr(synIDtrans(
+              \ synID(line("."),col("."),1)), "name") . ">"<CR>
+endfunction
+
+" COLOR SCHEME:
+"**************
+
+function s:ColorSchemeRedefined()
+  colorscheme sos
+endfunction
+
+" " CURSOR COLOR:
+" "**************
+
+function s:CursorColor()
+  if &term =~ "xterm\\|rxvt"            " TERM == (rxvt or xterm)
+    let &t_SI =      "\<Esc>]12;11\x7"  " insert color
+    let &t_EI =      "\<Esc>]12;7\x7"   " escape color
+    silent !echo -ne "\033]12;7\007"
+  endif
+endfunction
+
+" EXEC ALL:
+"**********
+
+call s:XDG_config_dir()
+call s:XDG_cache_dir()
+call s:VundleStart()
+call s:Configure()
+call s:KeymapConfigure()
+call s:StatusLineSet()
+call s:ColorSchemeRedefined()
+" call s:CursorColor()
+call s:PluginsSets()
+set viminfo+=n$XDG_CACHE_HOME/vim/info

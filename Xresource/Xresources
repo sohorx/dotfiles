@@ -1,0 +1,18 @@
+!		Xressources/Xdefaults
+Xcursor.theme: Vanilla-DMZ
+Xcursor.size: 32
+
+! X font
+! Xft*dpi:        96
+Xft*dpi:        116
+Xft*antialias:  true
+Xft*rgba:       rgb
+Xft*hinting:    true
+Xft*hintstyle:  hintslight
+
+#include "urxvt.rc"
+#include "urxvt-color.rc"
+#include "urxvt-map.rc"
+#include "urxvt-greffon.rc"
+#include "urxvt-browser.rc"
+#include "xterm.rc"

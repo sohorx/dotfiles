@@ -1,0 +1,128 @@
+!				URxvt
+!			basic:
+URxvt*bellIsUrgent: 	true
+URxvt*borderWidth: 	    0
+URxvt*metaSendsEscape: 	true
+URxvt*saveLines: 	    0
+URxvt*scrollBar: 	    false
+URxvt.scrollTtyOutput:	false
+URxvt.scrollTtyKeypress:false
+URxvt.scrollWithBuffer:	false
+URxvt.font:	\
+        xft:Terminus (TTF):pixelsize=22:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true
+!URxvt.boldFont:
+
+! 			transparency:
+! TRUE
+URxvt.inheritPixmap: 	false
+URxvt.tintColor: 	    #060606
+URxvt.depth: 		    32
+!URxvt.blurRadius:       5
+URxvt.background: 	    rgba:2000/2000/2000/eeee
+!URxvt.foreground: 	    rgba:ffff/ffff/ffff/ffff
+! FAKE
+!URxvt.transparent: true
+!URxvt.shading: 8
+!            fading:
+!URxvt.fading:      8
+!URxvt.fadeColor:   #222222
+
+!		extension
+URxvt.iso14755 : false
+
+URxvt.keysym.M-C-w: command:\033]710; \
+        xft:Inconsolata:pixelsize=20:antialias=false, \
+		xft:Code2000:antialias=false\007
+URxvt.keysym.M-C-u: command:\033]710; \
+        xft:DejaVu Sans Mono:style=ExtraLight:pixelsize=20:antialias=true\007
+URxvt.keysym.M-C-1: command:\033]710; \
+        xft:Inconsolata:pixelsize=18:antialias=true, \
+		xft:Code2000\007
+URxvt.keysym.M-C-2: command:\033]710; \
+        xft:Inconsolata:pixelsize=20:antialias=true, \
+		xft:Code2000\007
+URxvt.keysym.M-C-3: command:\033]710; \
+        xft:Inconsolata:pixelsize=22:antialias=true, \
+		xft:Code2000\007
+URxvt.keysym.M-C-4: command:\033]710; \
+        xft:Inconsolata:pixelsize=24:antialias=true, \
+		xft:Code2000\007
+URxvt.keysym.M-C-5: command:\033]710; \
+        xft:Inconsolata:pixelsize=28:antialias=true, \
+		xft:Code2000\007
+URxvt.keysym.M-C-6: command:\033]710; \
+        xft:Terminus (TTF):pixelsize=28:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true\007
+URxvt.keysym.M-C-7: command:\033]710; \
+        xft:Terminus (TTF):pixelsize=24:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true\007
+URxvt.keysym.M-C-8: command:\033]710; \
+        xft:Terminus (TTF):pixelsize=22:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true\007
+URxvt.keysym.M-C-9: command:\033]710; \
+        xft:Terminus (TTF):pixelsize=20:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true\007
+URxvt.keysym.M-C-0: command:\033]710; \
+        xft:Terminus (TTF):pixelsize=18:antialias=true, \
+		xft:Code2000, \
+        xft:Droid Sans Japanese, \
+        xft:HanaMinA:antialias=true, \
+        xft:DejaVu Sans Mono:antialias=true, \
+        xft:Linux Libertine:antialias=true, \
+        xft:XITS Math:style=Regular:antialias=true, \
+        xft:Mathematica1:antialias=true, \
+        xft:Droid Sans Fallback:antialias=true, \
+        xft:unifont, \
+        xft:Kochi Gothic:antialias=true,\
+        xft:Baekmuk Gulim:antialias=true\007

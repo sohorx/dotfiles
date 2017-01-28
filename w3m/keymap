@@ -1,0 +1,4 @@
+keymap C-n NEXT
+keymap C-p PREV
+keymap / ISEARCH
+keymap ? ISEARCH_BACK

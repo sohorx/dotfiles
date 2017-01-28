@@ -1,0 +1,77 @@
+::selection {
+    color: inherit !important;
+    background-color: #395966 !important;
+}
+html,body {
+    background-image: none !important;
+    background-color: #0e0e0e !important;
+    color: #909090 !important;
+    border-color: #1a1a1a !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+col,colgroup,ol,thead,paper-item,paper-item,paper-menu,iron-icon,iron-selector,paper-drawer-panel,paper-toolbar,paper-scroll-header-panel,c-wiz,dt,dl,th,input,pre,section,em,fieldset,main,header,span,label,tbody,table,form,footer,nav,ul,li,aside,td,tr,p,blockquote,article,div {
+    background-color: inherit !important;
+    color: inherit !important;
+    border-color: #1a1a1a !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+code {
+    background: inherit !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+}
+code.plain {
+    background: inherit !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    color: inherit !important;
+}
+input:focus,form:focus {
+    background: inherit !important;
+    color: inherit !important;
+    border-color: #404040 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+textarea:focus {
+    border-color: #404040 !important;
+}
+textarea {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: inherit !important;
+    border-color: #1a1a1a !important;
+    box-shadow: none !important;
+}
+h1,h2,h3,h4 {
+    background: inherit !important;
+    border-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+    box-shadow: none !important;
+}
+a {
+    background: inherit !important;
+    border-color: #1a1a1a !important;
+    color: #443b53 !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+a:hover {
+    color: #a8a8a8 !important;
+    border-color: #1a1a1a !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    background-color: #404040 !important;
+    box-shadow: none !important;
+}
+li > a > span {
+    background-color: inherit !important;
+    color: #719150 !important;
+    border-color: #1a1a1a !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}

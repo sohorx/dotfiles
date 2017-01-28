@@ -1,0 +1,49 @@
+!			color for URxvt
+! infos:
+! URxvt* == all urxvt terminal instance (default color)
+! urxvt* == instance named urxvt (default named instance)
+! other* == instance named other ("other" named instance)
+!
+! nmtui instance (simplist color)
+nmtui*color0:   #4a4a4a
+nmtui*color4:   #0e0e0e
+nmtui*color7:   #0e0e0e
+nmtui*color8:   #0e0e0e
+nmtui*color12:  #0e0e0e
+nmtui*color15:  #0e0e0e
+!
+! 			Normal
+URxvt*cursorColor: 	#d2e5f8
+URxvt.cursorBlink:	false
+! color Basic + Light
+!URxvt*background: 	#0e0e0e
+URxvt*background: 	#222222
+URxvt*foreground: 	#909090
+! color0	black
+URxvt*color0: 	#000000
+!URxvt*color8:	#4a4a4a
+URxvt*color8:	#525252
+! color1	red
+URxvt*color1:	#bf2220
+URxvt*color9:	#ff594c
+! color2	green
+URxvt*color2:	#719150
+URxvt*color10:	#91c45d
+! color3	yellow
+URxvt*color3:	#ed9f4b
+URxvt*color11:	#fbdf7f
+! color4	blue
+URxvt*color4:	#395966
+URxvt*color12:	#6AA6C0
+! color5	magenta
+!URxvt*color5:	#443B53
+URxvt*color5:	#4d445c
+URxvt*color13:	#6F5D8A
+! color6	cyan
+URxvt*color6:	#00826b
+URxvt*color14:	#00bb9a
+! color7	white
+!URxvt*color7:	#a8a8a8
+URxvt*color7:	#c8c8c8
+!URxvt*color15:	#e0e0e0
+URxvt*color15:	#f0f0f0

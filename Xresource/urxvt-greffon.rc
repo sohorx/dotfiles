@@ -1,0 +1,23 @@
+!					extentions:
+!URxvt.perl-ext-common: default,url-picker,clipboard,font-size
+URxvt.perl-lib: /home/sohorx/.config/urxvt/perl_lib/
+URxvt.perl-ext-common: default,url-picker,font-size
+!				http://
+! need url-picker plugin
+URxvt.urlLauncher: /home/sohorx/bin/surf
+URxvt.url-picker.launcher: /home/sohorx/bin/surf
+URxvt.keysym.C-F: perl:url-picker
+!				Ctrl+Shift+(C/V)
+!URxvt.clipboard.copycmd:  xclip -i -selection clipboard
+!URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+!URxvt.keysym.C-C:   perl:clipboard:copy
+!URxvt.keysym.C-V:   perl:clipboard:paste
+!				Zoom
+! need font-size plugin
+URxvt.keysym.C-KP_Add: perl:font-size:increase
+URxvt.keysym.C-=: perl:font-size:increase
+URxvt.keysym.C-K: perl:font-size:increase
+URxvt.keysym.C-J: perl:font-size:decrease
+URxvt.keysym.C-S-KP_Add: perl:font-size:incglobal
+URxvt.keysym.C-KP_Subtract: perl:font-size:decrease
+URxvt.keysym.C-S-KP_Subtract: perl:font-size:decglobal

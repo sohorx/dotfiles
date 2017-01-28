@@ -1,0 +1,67 @@
+Config { 
+      font = "xft:Droid Sans Japanese:pixelsize=19:antialias=true\
+             \,Terminus (TTF):pixelsize=22\
+             \,unifont\
+             \,HanaMinA\
+             \,Mathematica1\
+             \,Symbola"
+    , additionalFonts = []
+    , border          = BottomB
+    , borderColor     = "#1a1a1a"
+    , bgColor         = "#0e0e0e"
+    , fgColor         = "#909090"
+    , alpha           = 255
+    , position        = Top
+    , textOffset      = -1
+    , iconOffset      = -1
+    , iconRoot        = "."
+    , lowerOnStart     = True  -- send to borrom of window stack on start
+    , pickBroadest     = True  -- choose widest display (multi-monitor)
+    , persistent       = False  -- (enable/disable) hiding enable
+    , hideOnStart      = False -- start with window unmapped (hidden)
+    , allDesktops      = True  -- show on all desktop
+    , overrideRedirect = True  -- set the Override Redirect flag (Xlib)
+    , commands = [ 
+          Run Battery [ 
+              "--template" , "<fc=#444444,#1a1a1a>  <acstatus>  </fc>"
+            , "--Low"    , "20"
+            , "--High"   , "80"
+            , "--low"    , "#e0e0e0,#1a1a1a"
+            , "--normal" , "#606060,#1a1a1a"
+            , "--high"   , "#909090,#1a1a1a"
+            , "--"
+            , "-o"       
+            , "<fc=#909090,#1a1a1a>🔋 <left> - <timeleft></fc>"
+            , "-O"
+            , "<fc=#909090,#1a1a1a>🔋 <left></fc>"
+            , "-i"
+            , "<fc=#909090,#1a1a1a>🔋</fc>"
+            ] 120
+        , Run Com "mail.count" [] "mails" 120
+        , Run CoreTemp  [ "--template"
+                        , " <icon=.config/xmobar/xbm/temp.xbm/> <core0> "
+                        , "--Low"     , "50"
+                        , "--High"    , "60"
+                        , "--low"     , "#606060"
+                        , "--normal"  , "#909090"
+                        , "--high"    , "#e0e0e0" ] 60
+        , Run Wireless  "wlo1" [
+            "-t", "  <icon=.config/xmobar/xbm/wifi_02.xbm/> <essid>  " ] 20
+        , Run Date  "<fc=#a8a8a8,#404040>  %b %_d - %H:%M  </fc>" "date" 20
+        , Run MPD [ "-t"
+                  , "  <title><statei>[<flags>]  "
+                  , "--"
+                  , "-P", " ▶ "
+                  , "-Z", " ⏸ "
+                  , "-S", "♬  " ] 60
+        , Run StdinReader ]
+    , sepChar  = "%"
+    , alignSep = "}{"
+    , template = "%StdinReader%}{\
+                 \<fc=#909090,#1a1a1a>%mpd%</fc>\
+                 \ %coretemp% \
+                 \<fc=#909090,#1a1a1a>  ✉️ %mails%  </fc>\
+                 \%wlo1wi%\
+                 \%battery%\
+                 \%date%"
+}

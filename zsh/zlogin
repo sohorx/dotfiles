@@ -1,0 +1,13 @@
+if [ "$TERM" = "linux" ]; then
+    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx && poweroff
+    # set fontsize
+    setfont ter-118n
+    # sudo bash /etc/rc.d/keymap
+	coloset
+    # echo -en "\e]P00e0e0e" #black
+    zsh
+    # tmux
+    setfont ter-112n
+    exit
+fi
+#[[ $TMUX ]] && tmux clock-mode

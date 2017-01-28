@@ -1,0 +1,143 @@
+# This is an example resource file for rTorrent. Copy to
+# ~/.rtorrent.rc and enable/modify the options as needed. Remember to
+# uncomment the options you wish to enable.
+
+# Maximum and minimum number of peers to connect to per torrent.
+#min_peers = 40
+max_peers = 120
+
+# Same as above but for seeding completed torrents (-1 = same as downloading)
+#min_peers_seed = 10
+max_peers_seed = 50
+
+# Maximum number of simultanious uploads per torrent.
+max_uploads = 10
+
+# Global upload and download rate in KiB. "0" for unlimited.
+download_rate = 0
+upload_rate = 0
+#upload_rate = 15
+
+# Default directory to save the downloaded torrents.
+directory = /home/sohorx/downloads/
+
+# Default session directory. Make sure you don't run multiple instance
+# of rtorrent using the same session directory. Perhaps using a
+# relative path?
+session = /home/sohorx/.cache/rtorrent/
+
+# Watch a directory for new torrents, and stop those that have been
+# deleted.
+schedule = watch_directory,5,5,load_start=/home/sohorx/downloads/*.torrent
+schedule = untied_directory,5,5,stop_untied=
+
+# Close torrents when diskspace is low.
+schedule = low_diskspace,5,60,close_low_diskspace=100M
+
+# The ip address reported to the tracker.
+#ip = 127.0.0.1
+#ip = rakshasa.no
+
+# The ip address the listening socket and outgoing connections is
+# bound to.
+#bind = 127.0.0.1
+#bind = rakshasa.no
+
+# Port range to use for listening.
+port_range = 6890-6999
+
+# Start opening ports at a random position within the port range.
+port_random = yes
+
+# Check hash for finished torrents. Might be usefull until the bug is
+# fixed that causes lack of diskspace not to be properly reported.
+check_hash = yes
+
+# Set whether the client should try to connect to UDP trackers.
+use_udp_trackers = yes
+
+# Alternative calls to bind and ip that should handle dynamic ip's.
+#schedule = ip_tick,0,1800,ip=rakshasa
+#schedule = bind_tick,0,1800,bind=rakshasa
+
+# Encryption options, set to none (default) or any combination of the following:
+# allow_incoming, try_outgoing, require, require_RC4, enable_retry, prefer_plaintext
+#
+# The example value allows incoming encrypted connections, starts unencrypted
+# outgoing connections but retries with encryption if they fail, preferring
+# plaintext to RC4 encryption after the encrypted handshake
+#
+encryption = allow_incoming,enable_retry,prefer_plaintext
+
+# Enable DHT support for trackerless torrents or when all trackers are down.
+# May be set to "disable" (completely disable DHT), "off" (do not start DHT),
+# "auto" (start and stop DHT as needed), or "on" (start DHT immediately).
+# The default is "off". For DHT to work, a session directory must be defined.
+# 
+# dht = auto
+
+# UDP port to use for DHT. 
+# 
+# dht_port = 6881
+
+# Enable peer exchange (for torrents not marked private)
+#
+# peer_exchange = yes
+
+# colo:
+#Set colors using the options below in .rtorrent.rc:
+#Options: color_inactive_fg, color_inactive_bg, color_dead_fg,     color_dead_bg, 
+#         color_active_fg,   color_active_bg,   color_finished_fg, color_finished_bg, 
+#
+#Colors: 0 = black 1 = red 2 = green 3 = yellow 4 = blue 5 = magenta 6 = cyan 7 = white
+color_inactive_fg = 4
+color_dead_fg = 1
+color_active_fg = 3
+color_finished_fg = 2
+
+# notifycation old version
+#on_finished = move_complete,"execute=notify-send,$d.get_name=,downloading finished"
+#on_insert = move_complete,"execute=notify-send,$d.get_name=,downloading started"
+#on_start = move_complete,"execute=notify-send,start rtorrent"
+# newest
+system.method.set_key = event.download.finished,notify_me,"execute={/usr/bin/notify-send,-u,low,download complete,$d.get_name=}"
+system.method.set_key = event.download.inserted_new,notify_me,"execute={/usr/bin/notify-send,-u,low,download started,$d.get_name=}"
+
+# some conf find in the net, about system.method
+#system.method.set_key = event.download.inserted_new,set_ratio,"branch=d.get_custom2=,view.set_visible=sick"
+#system.method.set_key = event.download.inserted_new,set_ratio,"branch=d.get_custom3=,view.set_visible=couch"
+#system.method.set_key = event.download.inserted_new,set_autodir,"d.set_custom=autodir,\"$cat=$d.get_custom=isauto,$d.get_name=\""
+#system.method.set_key = event.download.inserted_new,set_manualdir,"d.set_custom=manualdir,\"$cat=~/downloads/complete/,$d.get_custom1=\""
+#system.method.set_key = event.download.inserted_new,set_movedir,"branch=d.get_custom=isauto,\"d.set_custom=movedir,$d.get_custom=autodir\",\"d.set_custom=movedir,$d.get_custom=manualdir\""
+#system.method.set_key = event.download.inserted_new,del_tor,"execute={rm,-rf,--,$d.get_loaded_file=}"
+#system.method.set_key = event.download.finished,move_complete,"d.close=;execute=mkdir,-p,$d.get_custom=movedir;execute=mv,-u,$d.get_base_path=,$d.get_custom=movedir;d.erase="
+#system.method.set = group.sick.ratio.command, d.close=, "execute={rm,-rf,--,$d.get_base_path=}", d.erase=
+#system.method.set = group.couch.ratio.command, d.close=, "execute={rm,-rf,--,$d.get_base_path=}", d.erase=
+
+# insert a method with the alias 'checkdirs1'
+# 1) returns true if the current path of the torrent data is not equal to the value of custom1
+# 2) otherwise, returns false
+#system.method.insert=checkdirs1,simple,"not=\"$equal={d.get_custom1=,d.get_base_path=}\""
+
+# insert a method with the alias 'movecheck1'
+# 1) returns true if all 3 commands return true ('result of checkdirs1' && 'torrent is 100% done', 'custom1 variable is set')
+# 2) otherwise, returns false
+#system.method.insert=movecheck1,simple,"and={checkdirs1=,d.get_complete=,d.get_custom1=}"
+
+# insert a method with the alias 'movedir1'
+# (a series of commands, separated by ';') 
+# 1) "set path of torrent to equal the value of custom1";
+# 2) "mv -u <current data path> <custom1 path>";
+# 3) "clear custom1", "stop the torrent","resume the torrent"
+# 4) stop the torrent
+# 5) start the torrent (to get the torrent to update the 'base path')
+#system.method.insert=movedir1,simple,"d.set_directory=$d.get_custom1=;execute=mv,-u,$d.get_base_path=,$d.get_custom1=;d.set_custom1=;d.stop=;d.start="
+
+# set a key with the name 'move_hashed1' that is triggered by the hash_done event.
+# 1) When hashing of a torrent completes, this custom key will be triggered.
+# 2) when triggered, execute the 'movecheck1' method and check the return value.
+# 3) if the 'movecheck' method returns 'true', execute the 'movedir1' method we inserted above.
+# NOTE-0: *Only* data that has had their hash checked manually with ^R [^R = Control r].
+# Or on a rtorrent restart[which initiates a hash check]. Will the data move; ~/torrents/incomplete => ~/torrents/complete for example.
+# NOTE-1: 'branch' is an 'if' conditional statement: if(movecheck1){movedir1}
+#system.method.set_key=event.download.hash_done,move_hashed1,"branch={$movecheck1=,movedir1=}"

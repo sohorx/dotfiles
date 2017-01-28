@@ -1,0 +1,24 @@
+# Write your default config options here!
+
+
+# gpu acceleration using va-api (vainfo)
+vo=vaapi:gl
+va=vaapi
+#vo=xv
+ao=alsa
+vf=spp,scale
+# subtitle
+ass=true
+embeddedfonts=true 
+unicode=yes                          
+utf8=yes
+slang=fr,en
+alang=jp,en
+# invert screen
+flip=no
+# options
+idx=yes
+nomouseinput=yes
+msgcolor=yes
+# msgmodule=yes
+nolirc=yes

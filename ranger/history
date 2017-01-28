@@ -1,0 +1,50 @@
+search kaba
+search mayo
+search she
+search kuma
+search torrent
+search geass
+search rag
+search blor
+search rar
+search zip
+search s
+search dangan
+search stra
+search dow
+search kab
+rename 13
+search 
+rename 14
+search code
+rename 17
+search kiz
+rename 21
+search kizn
+rename melty-blood
+map
+search mus
+default_linemode 
+de
+rename 
+rename_append 
+open_with 0
+bulkrename 
+noh
+search abstra
+!make fclean
+!ls
+!
+execute_command make fclean
+ran
+search glas
+find 
+history_go 
+search game
+dle
+
+search mid
+open_with 
+search young
+search bomber
+delete 

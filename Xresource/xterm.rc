@@ -1,0 +1,12 @@
+! 				Xterm
+xterm*bellIsUrgent: 	true
+xterm*borderWidth: 	0
+xterm*metaSendsEscape: 	true
+xterm*background: 	#000000
+xterm*foreground: 	white
+xterm*saveLines: 	2000
+xterm*scrollBar: 	false
+!xterm*faceName:		xft:Courier 10 Pitch:pixelsize=14
+!xterm*font:         -*-terminus-medium-*-12-*
+!xterm*wideFont: -misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-1
+xterm*utf8: 1

@@ -1,0 +1,107 @@
+[global]
+    font = "Terminus (TTF) 15"
+    allow_markup = yes
+    format = "<b>%s %p</b>\n%b"
+    sort = yes
+    indicate_hidden = true
+    # geometry = "x2"
+    idle_threshold = 0
+    geometry = "600x5-0+29"
+    alignment = center
+    show_age_threshold = 60
+    sticky_history = yes
+    follow = mouse
+    word_wrap = yes
+    separator_height = 2
+    padding = 10
+    horizontal_padding = 10
+    separator_color = frame
+    startup_notification = false
+    dmenu = "/usr/bin/dmenu -p dunst: -nb #FFFFFF -nf #000000 -sb #94DBFF -sf #000000"
+    browser = /home/sohorx/bin/url_dispatcher
+
+[frame]
+    width = 1
+    color = "#0e0e0e"
+
+[shortcuts]
+    close = ctrl+space
+    close_all = mod4+n
+    history = ctrl+grave
+    context = ctrl+shift+period
+
+[urgency_low]
+    background = "#0a0a0a"
+    foreground = "#4a4a4a"
+    timeout = 30
+
+[urgency_normal]
+    background = "#0a0a0a"
+    foreground = "#909090"
+    timeout = 60
+
+[urgency_critical]
+    background = "#0a0a0a"
+    foreground = "#bf2220"
+    timeout = 0
+
+[libpurple_signed]
+    appname = libpurple
+    summary = *igned*
+    urgency = low
+    timeout = 3
+    foreground = "#ccff33"
+
+[libpurple_came_back]
+    appname = libpurple
+    summary = "*came*"
+    format = ""
+
+[libpurple_went_away]
+    appname = libpurple
+    summary = "*went*"
+    format = ""
+
+[libpurple_says]
+    appname = libpurple
+    summary = *ays*
+    urgency = critical
+    foreground = "#ccff33"
+
+[libpurple]
+    appname = libpurple
+    urgency = critical
+    foreground = "#ccff33"
+
+[twitter]
+    appname = Pidgin
+    summary = *twitter.com*
+    urgency = low
+
+[turpial]
+    appname = Turpial
+    urgency = low
+
+[ttytter]
+    summary = "TTYtter*"
+    urgency = low
+
+[dunst-sum]
+    appname = gmailnotify.py
+    summary = "*[dD]unst*"
+    urgency = critical
+
+[dunst-body]
+    appname = gmailnotify.py
+    body = "*[dD]unst*"
+    urgency = critical
+
+[mcabber]
+    appname = notify-send
+    summary = "*jabber*"
+    urgency = critical
+
+[irc]
+    appname = weechat
+    timeout = 0
+    foreground = "#99FF33"

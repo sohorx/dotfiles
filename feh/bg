@@ -1,0 +1,4 @@
+#!/bin/sh
+#feh --no-fehbg --bg-scale '/home/sohorx/images/wall1920x1080/great/bg2.png' 
+feh  --no-fehbg --bg-scale '/home/sohorx/images/wall1920x1080/great/experimentslain4.png'
+
